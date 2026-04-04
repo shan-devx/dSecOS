@@ -15,7 +15,7 @@ int 0x13
 
 
 jc read_error
-jmp 0:0x7e00
+jmp 0x0000:0x7e00
 
 read_error:
   mov si, error_msg
