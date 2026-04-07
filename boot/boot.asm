@@ -13,7 +13,6 @@ mov dl, 0x80 ; hdd
 
 int 0x13
 
-
 jc read_error
 jmp 0x0000:0x7e00
 

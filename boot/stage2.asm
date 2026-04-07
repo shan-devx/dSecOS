@@ -1,6 +1,23 @@
 [org 0x7e00]
 [bits 16]
 
+in al, 0x92
+
+out 0x92, al
+
+; loading kernel
+mov ax, 0x1000
+mov es, ax
+xor bx, bx
+mov ah, 2
+mov al, 1 ; number of sector (i think i might need to change this later)
+mov ch, 0
+mov dh, 0
+mov cl, 3 ; kernel is at 3rd sector
+mov dl, 0x80
+int 0x13
+jc kernel_error
+
 cli ; clear interrupt flag (to ignore any input)
 
 xor ax, ax
@@ -13,6 +30,21 @@ or eax, 1
 mov cr0, eax
 
 jmp 0x8:protected_mode ; cs = 8
+
+kernel_error:
+  mov si, kernel_error_msg
+print:
+  mov ah, 0xe
+  mov al, [si]
+  cmp al, 0
+  je done
+  int 0x10
+  add si, 1
+  jmp print
+done:
+  jmp done
+kernel_error_msg:
+  db "[ERROR] reading kernel", 0
 
 align 8 ; for speed!!
 gdt:
@@ -51,7 +83,7 @@ protected_mode:
 
   mov esp, 0x90000
 
-jmp $
+jmp 0x10000
 
 times 510-($-$$) db 0
 dw 0xaa55
