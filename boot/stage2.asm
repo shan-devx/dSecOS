@@ -2,7 +2,7 @@
 [bits 16]
 
 in al, 0x92
-
+or al, 2
 out 0x92, al
 
 ; loading kernel
@@ -66,7 +66,8 @@ gdt:
 
     db 0
     db 0b10010010 ; writable datasegment, stack expanding down, higest privellage level
-    db 0b11101111 ; 32-bits, 4kb page unit, 0xF segment limiter, set big
+    db 0b11001111
+    ;db 0b11101111 ; 32-bits, 4kb page unit, 0xF segment limiter, set big
     db 0
 gdt_end:
 
