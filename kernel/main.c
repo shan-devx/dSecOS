@@ -53,5 +53,7 @@ void outportb (unsigned short _port, unsigned char _data)
 
 void main() __attribute__((section(".text.main")));
 void main(){
+  idt_init();
+
   while(1);
 }
