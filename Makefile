@@ -7,7 +7,7 @@ stage2.bin: boot/stage2.asm
 	nasm -f bin boot/stage2.asm -o stage2.bin
 
 kernel.o: kernel/kernel.c
-	i686-elf-gcc -c kernel/kernel.c -o kernel.o -ffreestanding -O2 -Wall -Wextra
+	i686-elf-gcc -c kernel/main.c -o kernel.o -ffreestanding -O2 -Wall -Wextra
 
 kernel.bin: kernel.o
 	ld -m elf_i386 -T kernel/linker.ld --oformat binary -o kernel.bin kernel.o
