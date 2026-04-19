@@ -53,7 +53,11 @@ void outportb (unsigned short _port, unsigned char _data)
 
 void main() __attribute__((section(".text.main")));
 void main(){
+  terminal_init();
   idt_init();
+  isr_init();
+
+  __asm__ __volatile__("div %0" :: "r"(0));
 
   while(1);
 }

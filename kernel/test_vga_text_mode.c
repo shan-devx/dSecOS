@@ -1,3 +1,4 @@
+#include "system.h"
 #include <stddef.h>
 #include <stdint.h>
 
@@ -38,6 +39,8 @@ uint8_t terminal_color;
 uint16_t* terminal_buffer = (uint16_t*) VGA_MEMORY;
 
 void terminal_init(){
+  terminal_color = vga_entry_color(VGA_COLOR_LIGHT_RED, VGA_COLOR_LIGHT_GREEN);
+
   terminal_column = 0;
   terminal_row = 0;
   for(size_t r = 0; r < VGA_HEIGHT; r++){
@@ -69,9 +72,7 @@ void kernel_main(){
   terminal_color = vga_entry_color(VGA_COLOR_LIGHT_RED, VGA_COLOR_LIGHT_GREEN);
   terminal_init();
 
-  terminal_print_string("Hello this is vga screen");
+  //terminal_print_string("Hello this is vga screen");
 
   while(1);
 }
-
-
