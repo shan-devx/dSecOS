@@ -21,6 +21,49 @@ isr%1:
   jmp isr_common_stub
 %endmacro
 
+%macro IRQ_M 1
+%assign x %1 + 32
+
+global irq%1
+
+irq%1:
+  cli
+  push 0
+
+  push x 
+  jmp irq_common_stub
+%endmacro
+
+%macro COMMON_STUB 1
+extern %1_handler
+
+%1_common_stub:
+  pusha
+  ; pushes 32bit (even though these registers are 16 bits)
+  push ds
+  push es
+  push fs
+  push gs
+  mov ax, 0x10
+  mov ds, ax
+  mov es, ax
+  mov fs, ax
+  mov gs, ax
+  mov eax, esp
+  push eax 
+
+  call %1_handler
+
+  pop eax
+  pop gs 
+  pop fs 
+  pop es 
+  pop ds 
+  popa
+
+  add esp, 8
+  iret
+%endmacro
 ; http://www.osdever.net/bkerndev/Docs/isrs.htm#:~:text=caused%2E-,Exception,No,-As
 ISR_NOERRC 0
 ISR_NOERRC 1
@@ -55,31 +98,23 @@ ISR_NOERRC 29
 ISR_ERRC 30 ; wrong in the tutorial
 ISR_NOERRC 31
 
-extern isr_fault
+COMMON_STUB isr
 
-isr_common_stub:
-  pusha
-  ; pushes 32bit (even though these registers are 16 bits)
-  push ds
-  push es
-  push fs
-  push gs
-  mov ax, 0x10
-  mov ds, ax
-  mov es, ax
-  mov fs, ax
-  mov gs, ax
-  mov eax, esp
-  push eax 
+IRQ_M 0
+IRQ_M 1
+IRQ_M 2
+IRQ_M 3
+IRQ_M 4
+IRQ_M 5
+IRQ_M 6
+IRQ_M 7
+IRQ_M 8
+IRQ_M 9
+IRQ_M 10
+IRQ_M 11
+IRQ_M 12
+IRQ_M 13
+IRQ_M 14
+IRQ_M 15
 
-  call isr_fault
-
-  pop eax
-  pop gs 
-  pop fs 
-  pop es 
-  pop ds 
-  popa
-
-  add esp, 8
-  iret
+COMMON_STUB irq

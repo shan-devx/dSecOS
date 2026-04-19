@@ -21,11 +21,15 @@ load_idt.o: kernel/load_idt.asm
 isrc.o: kernel/isrc.c
 	i686-elf-gcc -c kernel/isrc.c -o isrc.o -ffreestanding -O2 -Wall -Wextra
 
-isra.o: kernel/isra.asm
-	nasm -f elf32 kernel/isra.asm -o isra.o
+aisr_irq.o: kernel/aisr_irq.asm
+	nasm -f elf32 kernel/aisr_irq.asm -o aisr_irq.o
 
-kernel.bin: kernel.o idt.o load_idt.o isrc.o isra.o test_vga_text_mode.o
-	ld -m elf_i386 -T kernel/linker.ld --oformat binary -o kernel.bin kernel.o test_vga_text_mode.o idt.o load_idt.o isrc.o isra.o
+irq.o: kernel/irq.c
+	i686-elf-gcc -c kernel/irq.c -o irq.o -ffreestanding -O2 -Wall -Wextra
+
+
+kernel.bin: kernel.o idt.o load_idt.o isrc.o aisr_irq.o test_vga_text_mode.o irq.o
+	ld -m elf_i386 -T kernel/linker.ld --oformat binary -o kernel.bin kernel.o test_vga_text_mode.o idt.o load_idt.o isrc.o aisr_irq.o irq.o
 
 disk.img: boot.bin stage2.bin kernel.bin
 	cat boot.bin stage2.bin kernel.bin > disk.img

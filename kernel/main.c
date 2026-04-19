@@ -1,5 +1,6 @@
 #include "system.h"
 #include <stddef.h>
+#include <stdint.h>
 
 unsigned char *memcpy(unsigned char *dest, const unsigned char *src, size_t count){
   const unsigned char *s = (const unsigned char *) src;
@@ -40,15 +41,13 @@ size_t strlen(const char *str){
 }
 
 // for I/O
-unsigned char inportb (unsigned short _port)
-{
-    unsigned char rv;
-    __asm__ __volatile__ ("inb %1, %0" : "=a" (rv) : "dN" (_port));
+uint8_t inportb (uint16_t port){
+    uint8_t rv;
+    __asm__ __volatile__ ("inb %1, %0" : "=a" (rv) : "dN" (port) : "memory");
     return rv;
 }
-void outportb (unsigned short _port, unsigned char _data)
-{
-    __asm__ __volatile__ ("outb %1, %0" : : "dN" (_port), "a" (_data));
+void outportb (uint16_t port, uint8_t data){
+    __asm__ __volatile__ ("outb %0, %1" : : "a"(data), "dN" (port) : "memory");
 }
 
 void main() __attribute__((section(".text.main")));
@@ -56,8 +55,10 @@ void main(){
   terminal_init();
   idt_init();
   isr_init();
+  irq_init();
+  __asm__ __volatile__("sti");
 
-  __asm__ __volatile__("div %0" :: "r"(0));
-
+//  __asm__ __volatile__("div %0" :: "r"(0));
+  
   while(1);
 }

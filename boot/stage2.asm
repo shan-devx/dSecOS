@@ -10,7 +10,7 @@ mov ax, 0x1000
 mov es, ax
 xor bx, bx
 mov ah, 2
-mov al, 4 ; number of sector (i think i might need to change this later)
+mov al, 5 ; number of sector (i think i might need to change this later)
 mov ch, 0
 mov dh, 0
 mov cl, 3 ; kernel is at 3rd sector
@@ -80,6 +80,9 @@ gdt_desc:
 protected_mode:
   mov ax, 0x10 ; data segment
   mov ds, ax
+  mov es, ax
+  mov fs, ax 
+  mov gs, ax
   mov ss, ax
 
   mov esp, 0x90000
