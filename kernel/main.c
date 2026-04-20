@@ -57,6 +57,7 @@ void main(){
   isr_init();
   irq_init();
   __asm__ __volatile__("sti");
+  time_install();
 
 //  __asm__ __volatile__("div %0" :: "r"(0));
   

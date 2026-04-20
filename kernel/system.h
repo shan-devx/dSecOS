@@ -29,9 +29,12 @@ extern void idt_init();
 extern void isr_init();
 
 extern void irq_init();
-extern void irq_install();
 extern void irq_install(int i, void (*handler)(struct reg *r));
 extern void irq_uninstall(int i);
+
+extern int time_tick;
+extern void time_install();
+extern void time_wait(int ticks);
 
 extern void terminal_init();
 extern void terminal_print_string(const char* c);
