@@ -30,8 +30,11 @@ irq.o: kernel/irq.c
 time.o: kernel/time.c
 	i686-elf-gcc -c kernel/time.c -o time.o -ffreestanding -O2 -Wall -Wextra
 
-kernel.bin: kernel.o idt.o load_idt.o isrc.o aisr_irq.o test_vga_text_mode.o irq.o time.o
-	ld -m elf_i386 -T kernel/linker.ld --oformat binary -o kernel.bin kernel.o test_vga_text_mode.o idt.o load_idt.o isrc.o aisr_irq.o irq.o time.o
+keyboard.o: kernel/keyboard.c
+	i686-elf-gcc -c kernel/keyboard.c -o keyboard.o -ffreestanding -O2 -Wall -Wextra
+
+kernel.bin: kernel.o idt.o load_idt.o isrc.o aisr_irq.o test_vga_text_mode.o irq.o time.o keyboard.o
+	ld -m elf_i386 -T kernel/linker.ld --oformat binary -o kernel.bin kernel.o test_vga_text_mode.o idt.o load_idt.o isrc.o aisr_irq.o irq.o time.o keyboard.o
 
 disk.img: boot.bin stage2.bin kernel.bin
 	cat boot.bin stage2.bin kernel.bin > disk.img

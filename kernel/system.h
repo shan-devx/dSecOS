@@ -36,6 +36,8 @@ extern int time_tick;
 extern void time_install();
 extern void time_wait(int ticks);
 
+extern void keyboard_init();
+
 extern void terminal_init();
 extern void terminal_print_string(const char* c);
 

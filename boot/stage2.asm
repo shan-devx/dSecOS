@@ -10,7 +10,7 @@ mov ax, 0x1000
 mov es, ax
 xor bx, bx
 mov ah, 2
-mov al, 5 ; number of sector (i think i might need to change this later)
+mov al, 6 ; number of sector (i think i might need to change this later)
 mov ch, 0
 mov dh, 0
 mov cl, 3 ; kernel is at 3rd sector

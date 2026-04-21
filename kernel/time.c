@@ -4,10 +4,11 @@ int time_tick = 0;
 
 void time_handler(struct reg *r){
   time_tick++;
-
+/*
   if(time_tick % 100 == 0){
     terminal_print_string(" 1 sec passed ");
   }
+*/
 }
 
 void time_wait(int ticks){

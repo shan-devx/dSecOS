@@ -58,7 +58,7 @@ void main(){
   irq_init();
   __asm__ __volatile__("sti");
   time_install();
-
+  keyboard_init();
 //  __asm__ __volatile__("div %0" :: "r"(0));
   
   while(1);
