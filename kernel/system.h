@@ -41,4 +41,8 @@ extern void keyboard_init();
 extern void terminal_init();
 extern void terminal_print_string(const char* c);
 
+extern void heap_init();
+extern void *kmalloc(size_t size_needed);
+extern void kfree(void *ptr);
+
 #endif

@@ -59,6 +59,14 @@ void main(){
   __asm__ __volatile__("sti");
   time_install();
   keyboard_init();
+  heap_init();
+  void *ptr = kmalloc(1000);
+  if (ptr == 0){
+    terminal_print_string("error");
+  }
+  else{
+    terminal_print_string("worked ig");
+  }
 //  __asm__ __volatile__("div %0" :: "r"(0));
   
   while(1);
