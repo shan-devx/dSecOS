@@ -376,12 +376,12 @@ void I_Error (char *error, ...)
     }
 
     // Message first.
-    va_start(argptr, error);
+    //va_start(argptr, error);
     //fprintf(stderr, "\nError: ");
-    vfprintf(stderr, error, argptr);
-    fprintf(stderr, "\n\n");
-    va_end(argptr);
-    fflush(stderr);
+    //vfprintf(stderr, error, argptr);
+    //fprintf(stderr, "\n\n");
+    //va_end(argptr);
+    //fflush(stderr);
 
     // Write a copy of the message into buffer.
     va_start(argptr, error);

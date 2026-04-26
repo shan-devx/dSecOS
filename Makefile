@@ -1,6 +1,6 @@
 CC      = i686-elf-gcc
 LD      = i686-elf-ld
-CFLAGS  = -ffreestanding -O2 -Wall -Wextra
+CFLAGS  = -ffreestanding -O2 -Wall -Wextra -Iinclude
 LDFLAGS = -m elf_i386 -T kernel/linker.ld --oformat binary
 
 C_SRCS  := $(wildcard kernel/*.c)

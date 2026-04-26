@@ -49,7 +49,7 @@ void *kmalloc(size_t size_needed){
     start = (struct heap_header *)((uint8_t *)start + HEADER_SIZE + start->size);
   }
 
-  return 0;
+  return NULL;
 }
 
 void kfree(void *ptr){

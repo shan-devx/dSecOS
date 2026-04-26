@@ -11,11 +11,6 @@ struct reg{
   uint32_t eip, cs, eflags, useresp, ss; // automatically pused (useresp is not setuped yet)
 };
 
-
-extern unsigned char *memcpy(unsigned char *dest, const unsigned char *src, size_t count);
-extern unsigned char *memset(unsigned char *dest, unsigned char val, size_t count);
-extern unsigned short *memsetw(unsigned short *dest, unsigned short val, size_t count);
-extern size_t strlen(const char *str);
 extern uint8_t inportb (uint16_t port);
 extern void outportb (uint16_t port, uint8_t data);
 static inline void io_wait(void){

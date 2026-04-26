@@ -1,0 +1,293 @@
+shan@shan:~/project/dSecOS$ i686-elf-gcc doomgeneric/*.c -Idoomgeneric -Iinclude -w
+doomgeneric/g_game.c: In function 'G_DoLoadGame':
+doomgeneric/g_game.c:1554:19: error: implicit declaration of function 'fopen' [-Wimplicit-function-declaration]
+ 1554 |     save_stream = fopen(savename, "rb");
+      |                   ^~~~~
+doomgeneric/g_game.c:74:1: note: 'fopen' is defined in header '<stdio.h>'; this is probably fixable by adding '#include <stdio.h>'
+   73 | #include "g_game.h"
+  +++ |+#include <stdio.h>
+   74 | 
+doomgeneric/g_game.c:1554:17: error: assignment to 'FILE *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+ 1554 |     save_stream = fopen(savename, "rb");
+      |                 ^
+doomgeneric/g_game.c:1565:9: error: implicit declaration of function 'fclose' [-Wimplicit-function-declaration]
+ 1565 |         fclose(save_stream);
+      |         ^~~~~~
+doomgeneric/g_game.c: In function 'G_DoSaveGame':
+doomgeneric/g_game.c:1624:17: error: assignment to 'FILE *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+ 1624 |     save_stream = fopen(temp_savegame_file, "wb");
+      |                 ^
+doomgeneric/g_game.c:1631:21: error: assignment to 'FILE *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+ 1631 |         save_stream = fopen(recovery_savegame_file, "wb");
+      |                     ^
+doomgeneric/g_game.c:1653:35: error: implicit declaration of function 'ftell' [-Wimplicit-function-declaration]
+ 1653 |     if (vanilla_savegame_limit && ftell(save_stream) > SAVEGAMESIZE)
+      |                                   ^~~~~
+doomgeneric/g_game.c:1675:5: error: implicit declaration of function 'remove'; did you mean 'memmove'? [-Wimplicit-function-declaration]
+ 1675 |     remove(savegame_file);
+      |     ^~~~~~
+      |     memmove
+doomgeneric/g_game.c:1676:5: error: implicit declaration of function 'rename' [-Wimplicit-function-declaration]
+ 1676 |     rename(temp_savegame_file, savegame_file);
+      |     ^~~~~~
+doomgeneric/gusconf.c: In function 'WriteTimidityConfig':
+doomgeneric/gusconf.c:202:15: error: implicit declaration of function 'fopen' [-Wimplicit-function-declaration]
+  202 |     fstream = fopen(path, "w");
+      |               ^~~~~
+doomgeneric/gusconf.c:31:1: note: 'fopen' is defined in header '<stdio.h>'; this is probably fixable by adding '#include <stdio.h>'
+   30 | #include "z_zone.h"
+  +++ |+#include <stdio.h>
+   31 | 
+doomgeneric/gusconf.c:202:13: error: assignment to 'FILE *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  202 |     fstream = fopen(path, "w");
+      |             ^
+doomgeneric/gusconf.c:239:5: error: implicit declaration of function 'fclose' [-Wimplicit-function-declaration]
+  239 |     fclose(fstream);
+      |     ^~~~~~
+doomgeneric/i_scale.c: In function 'I_InitStretchTables':
+doomgeneric/i_scale.c:378:5: error: implicit declaration of function 'fflush' [-Wimplicit-function-declaration]
+  378 |     fflush(stdout);
+      |     ^~~~~~
+doomgeneric/i_scale.c:378:12: error: 'stdout' undeclared (first use in this function)
+  378 |     fflush(stdout);
+      |            ^~~~~~
+doomgeneric/i_scale.c:30:1: note: 'stdout' is defined in header '<stdio.h>'; this is probably fixable by adding '#include <stdio.h>'
+   29 | #include "z_zone.h"
+  +++ |+#include <stdio.h>
+   30 | 
+doomgeneric/i_scale.c:378:12: note: each undeclared identifier is reported only once for each function it appears in
+  378 |     fflush(stdout);
+      |            ^~~~~~
+doomgeneric/i_scale.c: In function 'I_InitSquashTable':
+doomgeneric/i_scale.c:395:12: error: 'stdout' undeclared (first use in this function)
+  395 |     fflush(stdout);
+      |            ^~~~~~
+doomgeneric/i_scale.c:395:12: note: 'stdout' is defined in header '<stdio.h>'; this is probably fixable by adding '#include <stdio.h>'
+doomgeneric/i_system.c: In function 'I_PrintBanner':
+doomgeneric/i_system.c:172:9: error: implicit declaration of function 'putchar' [-Wimplicit-function-declaration]
+  172 |         putchar(' ');
+      |         ^~~~~~~
+doomgeneric/i_system.c:53:1: note: include '<stdio.h>' or provide a declaration of 'putchar'
+   52 | #include "z_zone.h"
+  +++ |+#include <stdio.h>
+   53 | 
+doomgeneric/i_system.c: In function 'ZenityAvailable':
+doomgeneric/i_system.c:274:12: error: implicit declaration of function 'system' [-Wimplicit-function-declaration]
+  274 |     return system(ZENITY_BINARY " --help >/dev/null 2>&1") == 0;
+      |            ^~~~~~
+doomgeneric/i_system.c: In function 'I_Error':
+doomgeneric/i_system.c:368:17: error: 'stderr' undeclared (first use in this function)
+  368 |         fprintf(stderr, "Warning: recursive call to I_Error detected.\n");
+      |                 ^~~~~~
+doomgeneric/i_system.c:368:17: note: 'stderr' is defined in header '<stdio.h>'; this is probably fixable by adding '#include <stdio.h>'
+doomgeneric/i_system.c:368:17: note: each undeclared identifier is reported only once for each function it appears in
+doomgeneric/m_config.c: In function 'ParseIntParameter':
+doomgeneric/m_config.c:1721:9: error: implicit declaration of function 'sscanf' [-Wimplicit-function-declaration]
+ 1721 |         sscanf(strparm+2, "%x", &parm);
+      |         ^~~~~~
+doomgeneric/m_config.c:37:1: note: include '<stdio.h>' or provide a declaration of 'sscanf'
+   36 | #include "z_zone.h"
+  +++ |+#include <stdio.h>
+   37 | 
+doomgeneric/m_config.c: In function 'SetVariable':
+doomgeneric/m_config.c:1766:49: error: implicit declaration of function 'atof'; did you mean 'atoi'? [-Wimplicit-function-declaration]
+ 1766 |             * (float *) def->location = (float) atof(value);
+      |                                                 ^~~~
+      |                                                 atoi
+doomgeneric/m_menu.c: In function 'M_ReadSaveStrings':
+doomgeneric/m_menu.c:513:18: error: implicit declaration of function 'fopen' [-Wimplicit-function-declaration]
+  513 |         handle = fopen(name, "rb");
+      |                  ^~~~~
+doomgeneric/m_menu.c:60:1: note: 'fopen' is defined in header '<stdio.h>'; this is probably fixable by adding '#include <stdio.h>'
+   59 | #include "m_menu.h"
+  +++ |+#include <stdio.h>
+   60 | 
+doomgeneric/m_menu.c:513:16: error: assignment to 'FILE *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  513 |         handle = fopen(name, "rb");
+      |                ^
+doomgeneric/m_menu.c:520:9: error: implicit declaration of function 'fread' [-Wimplicit-function-declaration]
+  520 |         fread(&savegamestrings[i], 1, SAVESTRINGSIZE, handle);
+      |         ^~~~~
+doomgeneric/m_menu.c:521:9: error: implicit declaration of function 'fclose' [-Wimplicit-function-declaration]
+  521 |         fclose(handle);
+      |         ^~~~~~
+doomgeneric/m_menu.c: In function 'M_Episode':
+doomgeneric/m_menu.c:970:16: error: 'stderr' undeclared (first use in this function)
+  970 |       fprintf( stderr,
+      |                ^~~~~~
+doomgeneric/m_menu.c:970:16: note: 'stderr' is defined in header '<stdio.h>'; this is probably fixable by adding '#include <stdio.h>'
+doomgeneric/m_menu.c:970:16: note: each undeclared identifier is reported only once for each function it appears in
+doomgeneric/m_misc.c: In function 'M_MakeDirectory':
+doomgeneric/m_misc.c:60:5: error: implicit declaration of function 'mkdir' [-Wimplicit-function-declaration]
+   60 |     mkdir(path, 0755);
+      |     ^~~~~
+doomgeneric/m_misc.c: In function 'M_FileExists':
+doomgeneric/m_misc.c:70:15: error: implicit declaration of function 'fopen' [-Wimplicit-function-declaration]
+   70 |     fstream = fopen(filename, "r");
+      |               ^~~~~
+doomgeneric/m_misc.c:50:1: note: 'fopen' is defined in header '<stdio.h>'; this is probably fixable by adding '#include <stdio.h>'
+   49 | #include "z_zone.h"
+  +++ |+#include <stdio.h>
+   50 | 
+doomgeneric/m_misc.c:70:13: error: assignment to 'FILE *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+   70 |     fstream = fopen(filename, "r");
+      |             ^
+doomgeneric/m_misc.c:74:9: error: implicit declaration of function 'fclose' [-Wimplicit-function-declaration]
+   74 |         fclose(fstream);
+      |         ^~~~~~
+doomgeneric/m_misc.c:82:16: error: 'errno' undeclared (first use in this function)
+   82 |         return errno == EISDIR;
+      |                ^~~~~
+doomgeneric/m_misc.c:50:1: note: 'errno' is defined in header '<errno.h>'; this is probably fixable by adding '#include <errno.h>'
+   49 | #include "z_zone.h"
+  +++ |+#include <errno.h>
+   50 | 
+doomgeneric/m_misc.c:82:16: note: each undeclared identifier is reported only once for each function it appears in
+   82 |         return errno == EISDIR;
+      |                ^~~~~
+doomgeneric/m_misc.c:82:25: error: 'EISDIR' undeclared (first use in this function)
+   82 |         return errno == EISDIR;
+      |                         ^~~~~~
+doomgeneric/m_misc.c: In function 'M_FileLength':
+doomgeneric/m_misc.c:96:16: error: implicit declaration of function 'ftell' [-Wimplicit-function-declaration]
+   96 |     savedpos = ftell(handle);
+      |                ^~~~~
+doomgeneric/m_misc.c:99:5: error: implicit declaration of function 'fseek' [-Wimplicit-function-declaration]
+   99 |     fseek(handle, 0, SEEK_END);
+      |     ^~~~~
+doomgeneric/m_misc.c:99:22: error: 'SEEK_END' undeclared (first use in this function)
+   99 |     fseek(handle, 0, SEEK_END);
+      |                      ^~~~~~~~
+doomgeneric/m_misc.c:103:29: error: 'SEEK_SET' undeclared (first use in this function)
+  103 |     fseek(handle, savedpos, SEEK_SET);
+      |                             ^~~~~~~~
+doomgeneric/m_misc.c: In function 'M_WriteFile':
+doomgeneric/m_misc.c:117:12: error: assignment to 'FILE *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  117 |     handle = fopen(name, "wb");
+      |            ^
+doomgeneric/m_misc.c:122:13: error: implicit declaration of function 'fwrite' [-Wimplicit-function-declaration]
+  122 |     count = fwrite(source, 1, length, handle);
+      |             ^~~~~~
+doomgeneric/m_misc.c:122:13: note: include '<stdio.h>' or provide a declaration of 'fwrite'
+doomgeneric/m_misc.c: In function 'M_ReadFile':
+doomgeneric/m_misc.c:142:12: error: assignment to 'FILE *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  142 |     handle = fopen(name, "rb");
+      |            ^
+doomgeneric/m_misc.c:152:13: error: implicit declaration of function 'fread' [-Wimplicit-function-declaration]
+  152 |     count = fread(buf, 1, length, handle);
+      |             ^~~~~
+doomgeneric/m_misc.c: In function 'M_StrToInt':
+doomgeneric/m_misc.c:192:12: error: implicit declaration of function 'sscanf' [-Wimplicit-function-declaration]
+  192 |     return sscanf(str, " 0x%x", result) == 1
+      |            ^~~~~~
+doomgeneric/m_misc.c:192:12: note: include '<stdio.h>' or provide a declaration of 'sscanf'
+doomgeneric/m_misc.c: In function 'M_StringReplace':
+doomgeneric/m_misc.c:326:13: error: implicit declaration of function 'strstr' [-Wimplicit-function-declaration]
+  326 |         p = strstr(p, needle);
+      |             ^~~~~~
+doomgeneric/m_misc.c:50:1: note: include '<string.h>' or provide a declaration of 'strstr'
+   49 | #include "z_zone.h"
+  +++ |+#include <string.h>
+   50 | 
+doomgeneric/p_doors.c: In function 'EV_VerticalDoor':
+doomgeneric/p_doors.c:440:29: error: 'stderr' undeclared (first use in this function)
+  440 |                     fprintf(stderr, "EV_VerticalDoor: Tried to close "
+      |                             ^~~~~~
+doomgeneric/p_doors.c:34:1: note: 'stderr' is defined in header '<stdio.h>'; this is probably fixable by adding '#include <stdio.h>'
+   33 | #include "dstrings.h"
+  +++ |+#include <stdio.h>
+   34 | #include "sounds.h"
+doomgeneric/p_doors.c:440:29: note: each undeclared identifier is reported only once for each function it appears in
+  440 |                     fprintf(stderr, "EV_VerticalDoor: Tried to close "
+      |                             ^~~~~~
+doomgeneric/p_map.c: In function 'SpechitOverrun':
+doomgeneric/p_map.c:1442:21: error: 'stderr' undeclared (first use in this function)
+ 1442 |             fprintf(stderr, "SpechitOverrun: Warning: unable to emulate"
+      |                     ^~~~~~
+doomgeneric/p_map.c:38:1: note: 'stderr' is defined in header '<stdio.h>'; this is probably fixable by adding '#include <stdio.h>'
+   37 | #include "doomstat.h"
+  +++ |+#include <stdio.h>
+   38 | #include "r_state.h"
+doomgeneric/p_map.c:1442:21: note: each undeclared identifier is reported only once for each function it appears in
+ 1442 |             fprintf(stderr, "SpechitOverrun: Warning: unable to emulate"
+      |                     ^~~~~~
+doomgeneric/p_saveg.c: In function 'saveg_read8':
+doomgeneric/p_saveg.c:85:9: error: implicit declaration of function 'fread' [-Wimplicit-function-declaration]
+   85 |     if (fread(&result, 1, 1, save_stream) < 1)
+      |         ^~~~~
+doomgeneric/p_saveg.c:89:21: error: 'stderr' undeclared (first use in this function)
+   89 |             fprintf(stderr, "saveg_read8: Unexpected end of file while "
+      |                     ^~~~~~
+doomgeneric/p_saveg.c:34:1: note: 'stderr' is defined in header '<stdio.h>'; this is probably fixable by adding '#include <stdio.h>'
+   33 | #include "m_misc.h"
+  +++ |+#include <stdio.h>
+   34 | #include "r_state.h"
+doomgeneric/p_saveg.c:89:21: note: each undeclared identifier is reported only once for each function it appears in
+   89 |             fprintf(stderr, "saveg_read8: Unexpected end of file while "
+      |                     ^~~~~~
+doomgeneric/p_saveg.c: In function 'saveg_write8':
+doomgeneric/p_saveg.c:101:9: error: implicit declaration of function 'fwrite' [-Wimplicit-function-declaration]
+  101 |     if (fwrite(&value, 1, 1, save_stream) < 1)
+      |         ^~~~~~
+doomgeneric/p_saveg.c:101:9: note: include '<stdio.h>' or provide a declaration of 'fwrite'
+doomgeneric/p_saveg.c:105:21: error: 'stderr' undeclared (first use in this function)
+  105 |             fprintf(stderr, "saveg_write8: Error while writing save game\n");
+      |                     ^~~~~~
+doomgeneric/p_saveg.c:105:21: note: 'stderr' is defined in header '<stdio.h>'; this is probably fixable by adding '#include <stdio.h>'
+doomgeneric/p_saveg.c: In function 'saveg_read_pad':
+doomgeneric/p_saveg.c:156:11: error: implicit declaration of function 'ftell' [-Wimplicit-function-declaration]
+  156 |     pos = ftell(save_stream);
+      |           ^~~~~
+doomgeneric/p_setup.c: In function 'PadRejectArray':
+doomgeneric/p_setup.c:694:17: error: 'stderr' undeclared (first use in this function)
+  694 |         fprintf(stderr, "PadRejectArray: REJECT lump too short to pad! (%i > %i)\n",
+      |                 ^~~~~~
+doomgeneric/p_setup.c:42:1: note: 'stderr' is defined in header '<stdio.h>'; this is probably fixable by adding '#include <stdio.h>'
+   41 | #include "doomstat.h"
+  +++ |+#include <stdio.h>
+   42 | 
+doomgeneric/p_setup.c:694:17: note: each undeclared identifier is reported only once for each function it appears in
+  694 |         fprintf(stderr, "PadRejectArray: REJECT lump too short to pad! (%i > %i)\n",
+      |                 ^~~~~~
+doomgeneric/p_spec.c: In function 'DonutOverrun':
+doomgeneric/p_spec.c:1231:25: error: 'stderr' undeclared (first use in this function)
+ 1231 |                 fprintf(stderr,
+      |                         ^~~~~~
+doomgeneric/p_spec.c:43:1: note: 'stderr' is defined in header '<stdio.h>'; this is probably fixable by adding '#include <stdio.h>'
+   42 | #include "s_sound.h"
+  +++ |+#include <stdio.h>
+   43 | 
+doomgeneric/p_spec.c:1231:25: note: each undeclared identifier is reported only once for each function it appears in
+ 1231 |                 fprintf(stderr,
+      |                         ^~~~~~
+doomgeneric/p_spec.c: In function 'EV_DoDonut':
+doomgeneric/p_spec.c:1293:21: error: 'stderr' undeclared (first use in this function)
+ 1293 |             fprintf(stderr,
+      |                     ^~~~~~
+doomgeneric/p_spec.c:1293:21: note: 'stderr' is defined in header '<stdio.h>'; this is probably fixable by adding '#include <stdio.h>'
+doomgeneric/w_file_stdc.c: In function 'W_StdC_OpenFile':
+doomgeneric/w_file_stdc.c:38:15: error: implicit declaration of function 'fopen' [-Wimplicit-function-declaration]
+   38 |     fstream = fopen(path, "rb");
+      |               ^~~~~
+doomgeneric/w_file_stdc.c:24:1: note: 'fopen' is defined in header '<stdio.h>'; this is probably fixable by adding '#include <stdio.h>'
+   23 | #include "z_zone.h"
+  +++ |+#include <stdio.h>
+   24 | 
+doomgeneric/w_file_stdc.c:38:13: error: assignment to 'FILE *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+   38 |     fstream = fopen(path, "rb");
+      |             ^
+doomgeneric/w_file_stdc.c: In function 'W_StdC_CloseFile':
+doomgeneric/w_file_stdc.c:62:5: error: implicit declaration of function 'fclose' [-Wimplicit-function-declaration]
+   62 |     fclose(stdc_wad->fstream);
+      |     ^~~~~~
+doomgeneric/w_file_stdc.c: In function 'W_StdC_Read':
+doomgeneric/w_file_stdc.c:79:5: error: implicit declaration of function 'fseek' [-Wimplicit-function-declaration]
+   79 |     fseek(stdc_wad->fstream, offset, SEEK_SET);
+      |     ^~~~~
+doomgeneric/w_file_stdc.c:79:38: error: 'SEEK_SET' undeclared (first use in this function)
+   79 |     fseek(stdc_wad->fstream, offset, SEEK_SET);
+      |                                      ^~~~~~~~
+doomgeneric/w_file_stdc.c:79:38: note: each undeclared identifier is reported only once for each function it appears in
+doomgeneric/w_file_stdc.c:83:14: error: implicit declaration of function 'fread' [-Wimplicit-function-declaration]
+   83 |     result = fread(buffer, 1, buffer_len, stdc_wad->fstream);
+      |              ^~~~~

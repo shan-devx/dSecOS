@@ -1,5 +1,5 @@
-#include "system.h"
 #include <stdint.h>
+#include <string.h>
 
 struct idt32{
    uint16_t offset1;

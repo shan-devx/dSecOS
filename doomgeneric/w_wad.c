@@ -17,7 +17,7 @@
 //
 
 
-
+#include <system.h>
 
 #include <ctype.h>
 #include <stdio.h>
@@ -154,7 +154,7 @@ wad_file_t *W_AddFile (char *filename)
 
     if (wad_file == NULL)
     {
-		printf (" couldn't open %s\n", filename);
+		terminal_print_string(" couldn't file");
 		return NULL;
     }
 

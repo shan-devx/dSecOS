@@ -60,7 +60,7 @@
 // pre-standardisation version).  inttypes.h is also in the C99 
 // standard and defined to include stdint.h, so include this. 
 
-#include <inttypes.h>
+#include <stdint.h> // [shan] ig its not available for i686-elf-gcc
 
 #if defined(__cplusplus) || defined(__bool_true_false_are_defined)
 

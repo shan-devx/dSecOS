@@ -1,0 +1,36 @@
+[
+  {
+    "arguments": [
+      "/home/shan/opt/cross/bin/i686-elf-gcc",
+      "-c",
+      "-ffreestanding",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-Iinclude",
+      "-o",
+      "kernel/heap.o",
+      "kernel/heap.c"
+    ],
+    "directory": "/home/shan/project/dSecOS",
+    "file": "/home/shan/project/dSecOS/kernel/heap.c",
+    "output": "/home/shan/project/dSecOS/kernel/heap.o"
+  },
+  {
+    "arguments": [
+      "/home/shan/opt/cross/bin/i686-elf-gcc",
+      "-c",
+      "-ffreestanding",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-Iinclude",
+      "-o",
+      "kernel/idt.o",
+      "kernel/idt.c"
+    ],
+    "directory": "/home/shan/project/dSecOS",
+    "file": "/home/shan/project/dSecOS/kernel/idt.c",
+    "output": "/home/shan/project/dSecOS/kernel/idt.o"
+  }
+]
