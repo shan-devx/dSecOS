@@ -1,4 +1,6 @@
 VBE_INFO equ 0x9000 ; just after stage 2
+VBE_MODE equ 0x9000+512
+FR_BUFF equ VBE_MODE+256
 
 [org 0x7e00]
 [bits 16]
@@ -38,7 +40,7 @@ LBA_SECTOR
 LBA_SECTOR
 LBA_SECTOR
 
-; vessa bios info
+; vesa
 mov dword [VBE_INFO], "VBE2"
 
 xor ax, ax
@@ -51,6 +53,47 @@ int 0x10
 cmp ax, 0x004F
 jne vbe_error
 
+mov si, [VBE_INFO+14]
+sub si, 2
+mov ax, [VBE_INFO+16]
+mov fs, ax
+loop_mode: 
+  add si, 2
+  cmp word [fs:si], 0xFFFF
+  je vbe_error
+
+  mov cx, [fs:si] ; 1st element of supported video modes array
+  xor ax, ax 
+  mov es, ax
+  mov di, VBE_MODE
+
+  mov ax, 0x4F01
+  int 0x10
+  cmp ax, 0x004F
+  jne vbe_error
+
+  cmp word [VBE_MODE+18], 320 ;width
+  jne loop_mode
+  cmp word [VBE_MODE+20], 200 ;height
+  jne loop_mode
+  cmp byte [VBE_MODE+25], 32 ;bpp
+  jne loop_mode
+  test byte [VBE_MODE], 0x80 ;liner frame buffer
+  jz loop_mode
+
+mov eax ,[VBE_MODE + 40]
+mov [FR_BUFF], eax
+
+or cx, 0x4000
+mov bx, cx
+mov ax, 0x4F02
+int 0x10
+
+cmp ax, 0x004F
+jne vbe_error
+
+
+; to protected mode
 cli ; clear interrupt flag (to ignore any input)
 
 xor ax, ax
@@ -140,6 +183,3 @@ protected_mode:
   mov esp, 0x90000
 
 jmp 0x10000
-
-times 510-($-$$) db 0
-dw 0xaa55
