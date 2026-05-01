@@ -6,17 +6,35 @@ or al, 2
 out 0x92, al
 
 ; loading kernel
-mov ax, 0x1000
-mov es, ax
-xor bx, bx
-mov ah, 2
-mov al, 7 ; number of sector (i think i might need to change this later)
-mov ch, 0
-mov dh, 0
-mov cl, 3 ; kernel is at 3rd sector
+; lba
+%macro LBA_SECTOR 0
+
+add word [dap+6],  4064 ; 512*127/16
+add dword [dap+8], 127 ; inc sector start 
+
+mov si, dap
+mov ah, 0x42
+mov dl, 0x80
+int 0x13 
+jc kernel_error
+
+%endmacro
+
+mov si, dap
+mov ah, 0x42
 mov dl, 0x80
 int 0x13
 jc kernel_error
+
+LBA_SECTOR
+LBA_SECTOR
+LBA_SECTOR
+LBA_SECTOR
+LBA_SECTOR
+LBA_SECTOR
+LBA_SECTOR
+LBA_SECTOR
+LBA_SECTOR
 
 cli ; clear interrupt flag (to ignore any input)
 
@@ -74,6 +92,18 @@ gdt_end:
 gdt_desc:
   dw gdt_end - gdt - 1
   dd gdt
+
+dap: ;disk address packet
+  db 0x10 
+  db 0
+
+  dw 127 ; no. of sector
+
+  dw 0 ;offset
+  dw 0x1000 ;segment
+
+  dd 2 ; start from 3rd sector
+  dd 0
 
 [bits 32]
 

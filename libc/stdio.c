@@ -6,6 +6,7 @@
 #include <system.h>
 #include <stdio.h>
 #include <strings.h>
+#include <stddef.h>
 
 #define STB_SPRINTF_IMPLEMENTATION
 #include <stb_sprintf.h>

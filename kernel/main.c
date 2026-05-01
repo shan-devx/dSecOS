@@ -18,10 +18,10 @@ void main(){
   idt_init();
   isr_init();
   irq_init();
-  __asm__ __volatile__("sti");
   time_install();
   keyboard_init();
   heap_init();
+  __asm__ __volatile__("sti");
   void *ptr = kmalloc(1000);
   if (ptr == 0){
     terminal_print_string("error");
