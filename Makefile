@@ -1,7 +1,7 @@
 CC      = i686-elf-gcc
 LD      = i686-elf-ld
 CFLAGS  = -ffreestanding -O2 -w -Iinclude -Idoomgeneric -I/home/shan/opt/cross/lib/gcc/i686-elf/14.1.0/include -fno-builtin 
-LDFLAGS = -m elf_i386 -T kernel/linker.ld --oformat binary -nostdlib /home/shan/opt/cross/lib/gcc/i686-elf/14.1.0/libgcc.a 
+LDFLAGS = -m elf_i386 -T kernel/linker.ld --oformat binary -nostdlib
 
 C_SRCS  := $(wildcard kernel/*.c)
 ASM_SRCS := $(wildcard kernel/*.asm)
@@ -30,7 +30,7 @@ doomgeneric/%.o: doomgeneric/%.c
 	$(CC) -c $< -o $@ $(CFLAGS)
 
 kernel.bin: $(OBJS)
-	$(LD) $(LDFLAGS) $^ -o $@
+	$(LD) $(LDFLAGS) $^ /home/shan/opt/cross/lib/gcc/i686-elf/14.1.0/libgcc.a -o $@
 
 disk.img: boot.bin stage2.bin kernel.bin
 	cat $^ > $@

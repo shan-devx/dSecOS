@@ -4,7 +4,7 @@
 mov bx, 0x7e00 ; stage 2 location
 
 mov ah, 2 ; chs read mode
-mov al, 1 ; 1 sector
+mov al, 1 ; number of sector
 
 mov ch, 0
 mov dh, 0

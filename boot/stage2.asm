@@ -1,3 +1,5 @@
+VBE_INFO equ 0x9000 ; just after stage 2
+
 [org 0x7e00]
 [bits 16]
 
@@ -36,10 +38,24 @@ LBA_SECTOR
 LBA_SECTOR
 LBA_SECTOR
 
+; vessa bios info
+mov dword [VBE_INFO], "VBE2"
+
+xor ax, ax
+mov es, ax
+mov di, VBE_INFO ; just after stage 2
+
+mov ax, 0x4F00
+int 0x10
+
+cmp ax, 0x004F
+jne vbe_error
+
 cli ; clear interrupt flag (to ignore any input)
 
 xor ax, ax
 mov ds, ax
+mov es, ax
 
 lgdt [gdt_desc] ; ds:gdt_desc
 
@@ -63,6 +79,12 @@ done:
   jmp done
 kernel_error_msg:
   db "[ERROR] reading kernel", 0
+
+vbe_error:
+  mov si, vbe_error_msg
+  jmp print
+vbe_error_msg:
+  db "[ERROR] vbe", 0
 
 align 8 ; for speed!!
 gdt:

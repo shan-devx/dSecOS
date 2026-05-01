@@ -22,14 +22,7 @@ void main(){
   keyboard_init();
   heap_init();
   __asm__ __volatile__("sti");
-  void *ptr = kmalloc(1000);
-  if (ptr == 0){
-    terminal_print_string("error");
-  }
-  else{
-    terminal_print_string("worked ig");
-  }
-//  __asm__ __volatile__("div %0" :: "r"(0));
+  vga_init();
   
   while(1);
 }
