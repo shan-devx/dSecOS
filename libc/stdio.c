@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <strings.h>
 #include <stddef.h>
+#include <vbe.h>
 
 #define STB_SPRINTF_IMPLEMENTATION
 #include <stb_sprintf.h>
@@ -25,7 +26,7 @@ int sscanf(const char *str, const char *format, ...){
 }
 
 int printf(const char  *format, ...){
-  terminal_print_string(format);
+  put_string(format);
   return 0;
 }
 
@@ -36,7 +37,7 @@ int puts(const char *s){
 
 int putchar(int c){
   char buf[2] = {(char)c, '\0'};
-  terminal_print_string(buf);
+  put_string(buf);
   return c;
 }
 

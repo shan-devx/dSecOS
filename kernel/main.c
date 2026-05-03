@@ -1,6 +1,7 @@
 #include "system.h"
 #include <stddef.h>
 #include <stdint.h>
+#include <stdio.h>
 #include <vbe.h>
 
 // for I/O
@@ -23,14 +24,10 @@ void main(){
   keyboard_init();
   heap_init();
   __asm__ __volatile__("sti");
-
   vbe_init();
   
-  for (int y = 0; y < 200; y++){
-    for (int x = 0; x < 320; x++){
-      put_pixel(x, y);
-    }
-  }
+  char *out = "Hellow world!";
+  printf(out);
 
   while(1);
 }
