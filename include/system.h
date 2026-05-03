@@ -40,6 +40,4 @@ extern void heap_init();
 extern void *kmalloc(size_t size_needed);
 extern void kfree(void *ptr);
 
-extern void vga_init();
-
 #endif

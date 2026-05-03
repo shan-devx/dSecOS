@@ -16,6 +16,7 @@ boot.bin: boot/boot.asm
 
 stage2.bin: boot/stage2.asm
 	nasm -f bin $< -o $@
+	truncate -s 1K stage2.bin
 
 kernel/%.o: kernel/%.c
 	$(CC) -c $< -o $@ $(CFLAGS)

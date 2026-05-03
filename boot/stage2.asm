@@ -1,6 +1,6 @@
 VBE_INFO equ 0x9000 ; just after stage 2
-VBE_MODE equ 0x9000+512
-FR_BUFF equ VBE_MODE+256
+VBE_MODE equ 0x9000+ 0x200 ; + 512
+FR_BUFF equ VBE_MODE+0x100 ; +256
 
 [org 0x7e00]
 [bits 16]
@@ -167,7 +167,7 @@ dap: ;disk address packet
   dw 0 ;offset
   dw 0x1000 ;segment
 
-  dd 2 ; start from 3rd sector
+  dd 3 ; start from 4rd sector
   dd 0
 
 [bits 32]

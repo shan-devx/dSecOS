@@ -1,6 +1,7 @@
 #include "system.h"
 #include <stddef.h>
 #include <stdint.h>
+#include <vbe.h>
 
 // for I/O
 uint8_t inportb (uint16_t port){
@@ -14,7 +15,7 @@ void outportb (uint16_t port, uint8_t data){
 
 void main() __attribute__((section(".text.main")));
 void main(){
-  terminal_init();
+
   idt_init();
   isr_init();
   irq_init();
@@ -22,7 +23,14 @@ void main(){
   keyboard_init();
   heap_init();
   __asm__ __volatile__("sti");
-  vga_init();
+
+  vbe_init();
   
+  for (int y = 0; y < 200; y++){
+    for (int x = 0; x < 320; x++){
+      put_pixel(x, y);
+    }
+  }
+
   while(1);
 }
