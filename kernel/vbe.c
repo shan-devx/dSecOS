@@ -1,4 +1,5 @@
 #include <stddef.h>
+#include <string.h>
 #include <system.h>
 #include <strings.h>
 #include <vbe.h>
@@ -21,6 +22,10 @@ void put_pixel(int x, int y, int b, int g, int r){
   lfb[i+1] = g;
   lfb[i+2] = r;
   lfb[i+3] = 0;
+}
+
+void vbe_draw(char *d){
+  memcpy(lfb, d, WIDTH*HEIGHT*4);
 }
 
 void put_char(int character, int x, int y){

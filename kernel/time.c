@@ -17,7 +17,7 @@ void time_wait(int ticks){
 }
 
 void time_install(){
-  int d = 1193180 / 100;
+  int d = 1193180 / 1000;
   outportb(0x43, 0x36);
   outportb(0x40, d & 0xFF);
   outportb(0x40, d >> 8);

@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <doomgeneric_dsecos.h>
 
 #include "m_argv.h"
 

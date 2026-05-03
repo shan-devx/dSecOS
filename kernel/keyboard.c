@@ -1,5 +1,6 @@
 #include "system.h"
 #include <stdint.h>
+#include "../doomgeneric/doomkeys.h"
 
 // US keyboard layout
 unsigned char kbdus[128] =
@@ -42,6 +43,38 @@ unsigned char kbdus[128] =
     0,	/* All other keys are undefined */
 };
 
+int press = 0;
+unsigned char key_press = 0;
+
+int doom_keyboard(int *pressed, unsigned char *key){
+  if(key_press != 0){
+    *pressed = press;
+
+    switch(key_press){
+      case 'w':
+        *key = KEY_UPARROW;
+        break;
+      case 's':
+        *key = KEY_DOWNARROW;
+        break;
+      case 'a':
+        *key = KEY_LEFTARROW;
+        break;
+      case 'd':
+        *key = KEY_RIGHTARROW;
+        break;
+      case '\n':
+        *key = KEY_ENTER;
+        break;
+      default:
+        *key = 0;
+    }
+
+    return 1;
+  }
+  return 0;
+}
+
 #define KB_D 0x60 // keyboard data register 
 #define KB_C 0x64 // keyboard control register
 
@@ -50,13 +83,17 @@ void keyboard_handler(struct reg *r){
 
   // key released
   if(scancode & 0x80){
-
+    press = 0;
+    key_press = 0;
   }
   else{
+    press = 1;
+    key_press = kbdus[scancode];
+
     char a[2];
     a[0] = kbdus[scancode];
     a[1] = '\0';
-    terminal_print_string(a);
+//    terminal_print_string(a);
   }
 }
 

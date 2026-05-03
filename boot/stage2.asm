@@ -11,34 +11,18 @@ out 0x92, al
 
 ; loading kernel
 ; lba
-%macro LBA_SECTOR 0
+load_kernel:
+  mov si, dap
+  mov ah, 0x42
+  mov dl, 0x80
+  int 0x13
+  jc kernel_error
 
-add word [dap+6],  4064 ; 512*127/16
-add dword [dap+8], 127 ; inc sector start 
+  add word [dap+6], 4064 ;127*512/16
+  add word [dap+8], 127
 
-mov si, dap
-mov ah, 0x42
-mov dl, 0x80
-int 0x13 
-jc kernel_error
-
-%endmacro
-
-mov si, dap
-mov ah, 0x42
-mov dl, 0x80
-int 0x13
-jc kernel_error
-
-LBA_SECTOR
-LBA_SECTOR
-LBA_SECTOR
-LBA_SECTOR
-LBA_SECTOR
-LBA_SECTOR
-LBA_SECTOR
-LBA_SECTOR
-LBA_SECTOR
+  cmp dword [dap+8], 59904
+  jl load_kernel
 
 ; vesa
 mov dword [VBE_INFO], "VBE2"

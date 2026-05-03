@@ -1,30 +1,43 @@
 #include "../doomgeneric/doomgeneric.h"
+#include <stdio.h>
+#include <stdlib.h>
 #include <system.h>
 #include <stdint.h>
+#include <vbe.h>
 
 void DG_Init() {
-    // initialize your framebuffer here
 }
 
 void DG_DrawFrame() {
-    // copy DG_ScreenBuffer to your framebuffer
-    // DG_ScreenBuffer is the doom render buffer
+  vbe_draw((char *)DG_ScreenBuffer);
 }
 
 void DG_SleepMs(uint32_t ms) {
-    // busy wait or use your PIT timer
+  time_wait(ms);
 }
 
 uint32_t DG_GetTicksMs() {
-    // return milliseconds since boot
-    // use your PIT timer
+  return time_tick;
 }
 
 int DG_GetKey(int *pressed, unsigned char *key) {
-    // return keyboard input
-    return 0;  // stub for now
+    return doom_keyboard(pressed, key);
 }
 
 void DG_SetWindowTitle(const char *title) {
-    // ignore or print to terminal
+}
+
+extern char _binary_freedoom1_wad_start[];
+extern char _binary_freedoom1_wad_end[];
+
+void wad_init(){
+  FILE *wad = malloc(sizeof(FILE));
+  wad->base = _binary_freedoom1_wad_start;
+  wad->ptr = _binary_freedoom1_wad_start;
+  wad->size = _binary_freedoom1_wad_start - _binary_freedoom1_wad_start;
+  wad->mode = 'r';
+
+  file_names[file_cnt] = "freedoom1.wad";
+  disk[file_cnt] = wad;
+  file_cnt++;
 }

@@ -20,7 +20,6 @@ static inline void io_wait(void){
 
 extern void idt_add(uint8_t numb, uint32_t offset, uint16_t selc, uint8_t af);
 extern void idt_init();
-
 extern void isr_init();
 
 extern void irq_init();
@@ -32,6 +31,7 @@ extern void time_install();
 extern void time_wait(int ticks);
 
 extern void keyboard_init();
+extern int doom_keyboard(int *pressed, unsigned char *key);
 
 extern void terminal_init();
 extern void terminal_print_string(const char* c);
@@ -39,5 +39,7 @@ extern void terminal_print_string(const char* c);
 extern void heap_init();
 extern void *kmalloc(size_t size_needed);
 extern void kfree(void *ptr);
+
+extern void wad_init();
 
 #endif

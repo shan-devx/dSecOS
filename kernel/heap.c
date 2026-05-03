@@ -2,9 +2,16 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#define HEAP_START 0x200000 // hard coded for now
+extern char __heap_start;
+extern char __heap_end;
+/*
+#define HEAP_START 0x40000000 // hard coded for now
 #define HEAP_SIZE 0x4000000 // 64mb
 #define HEAP_END (HEAP_START + HEAP_SIZE)
+*/
+#define HEAP_START (uint8_t *)&__heap_start
+#define HEAP_END (uint8_t *)&__heap_end
+#define HEAP_SIZE (HEAP_END - HEAP_START)
 
 struct heap_header{
   int free;

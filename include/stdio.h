@@ -25,6 +25,10 @@ int putchar(int c);
 int vsnprintf(char *str, size_t size, const char *format, va_list ap);
 int snprintf(char *str, size_t size, const char *format, ...);
 
+extern FILE *disk[10];
+extern char* file_names[10];
+extern size_t file_cnt;
+
 FILE *fopen(const char *pathname, const char *mode);
 size_t fread(void *ptr, size_t size, size_t nmemb, FILE *stream);
 size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *stream);

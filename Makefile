@@ -7,7 +7,7 @@ C_SRCS  := $(wildcard kernel/*.c)
 ASM_SRCS := $(wildcard kernel/*.asm)
 LIBC_SRCS := $(wildcard libc/*.c)
 DOOM_SRCS := $(wildcard doomgeneric/*.c)
-OBJS    := $(C_SRCS:.c=.o) $(ASM_SRCS:.asm=.o) $(LIBC_SRCS:.c=.o) $(DOOM_SRCS:.c=.o) 
+OBJS    := $(C_SRCS:.c=.o) $(ASM_SRCS:.asm=.o) $(LIBC_SRCS:.c=.o) $(DOOM_SRCS:.c=.o) doomwad.o
 
 all: disk.img
 
@@ -33,7 +33,7 @@ doomgeneric/%.o: doomgeneric/%.c
 kernel.bin: $(OBJS)
 	$(LD) $(LDFLAGS) $^ /home/shan/opt/cross/lib/gcc/i686-elf/14.1.0/libgcc.a -o $@
 
-disk.img: boot.bin stage2.bin kernel.bin
+disk.img: boot.bin stage2.bin kernel.bin 
 	cat $^ > $@
 	truncate -s +1M $@
 
