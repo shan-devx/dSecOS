@@ -35,7 +35,6 @@ kernel.bin: $(OBJS)
 
 disk.img: boot.bin stage2.bin kernel.bin 
 	cat $^ > $@
-	truncate -s +1M $@
 
 run: disk.img
 	qemu-system-i386 -drive file=disk.img,format=raw,index=0,media=disk

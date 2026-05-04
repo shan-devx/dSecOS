@@ -1,0 +1,6 @@
+.cache
+.asm-lsp.toml
+*.o
+!doomwad.o
+*.img
+*.bin
