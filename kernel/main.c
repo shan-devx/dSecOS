@@ -2,6 +2,7 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <vbe.h>
 #include "../doomgeneric/doomgeneric.h"
 
@@ -17,7 +18,6 @@ void outportb (uint16_t port, uint8_t data){
 
 void main() __attribute__((section(".text.main")));
 void main(){
-
   idt_init();
   isr_init();
   irq_init();
@@ -27,12 +27,16 @@ void main(){
   __asm__ __volatile__("sti");
   vbe_init();
   wad_init();
+/* heap is working
+  char *c = (char *)malloc(100);
+  c = "hello";
+  printf(c);
+*/
 
   char *argv[] = {"doom", "-iwad", "freedoom1.wad"};
   doomgeneric_Create(3, argv);
   while(1){
     doomgeneric_Tick();
   }
-
   while(1);
 }

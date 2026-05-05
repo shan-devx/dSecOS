@@ -27,14 +27,14 @@ int DG_GetKey(int *pressed, unsigned char *key) {
 void DG_SetWindowTitle(const char *title) {
 }
 
-extern char _binary_freedoom1_wad_start[];
-extern char _binary_freedoom1_wad_end[];
+extern char _binary_doom1_wad_start[];
+extern char _binary_doom1_wad_end[];
 
 void wad_init(){
   FILE *wad = malloc(sizeof(FILE));
-  wad->base = _binary_freedoom1_wad_start;
-  wad->ptr = _binary_freedoom1_wad_start;
-  wad->size = _binary_freedoom1_wad_start - _binary_freedoom1_wad_start;
+  wad->base = _binary_doom1_wad_start;
+  wad->ptr = _binary_doom1_wad_start;
+  wad->size = _binary_doom1_wad_end - _binary_doom1_wad_start;
   wad->mode = 'r';
 
   file_names[file_cnt] = "freedoom1.wad";

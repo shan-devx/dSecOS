@@ -1,4 +1,4 @@
-.cache
+.cache/
 .asm-lsp.toml
 *.o
 !doomwad.o

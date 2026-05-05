@@ -32,12 +32,13 @@ doomgeneric/%.o: doomgeneric/%.c
 
 kernel.bin: $(OBJS)
 	$(LD) $(LDFLAGS) $^ /home/shan/opt/cross/lib/gcc/i686-elf/14.1.0/libgcc.a -o $@
+	truncate -s 4616704 kernel.bin
 
 disk.img: boot.bin stage2.bin kernel.bin 
 	cat $^ > $@
 
 run: disk.img
-	qemu-system-i386 -drive file=disk.img,format=raw,index=0,media=disk
+	qemu-system-i386 -m 100M -drive file=disk.img,format=raw,index=0,media=disk
 
 clean:
 	rm -f boot.bin stage2.bin kernel.bin kernel/*.o disk.img libc/*.o doomgeneric/*.o

@@ -9,38 +9,7 @@ in al, 0x92
 or al, 2
 out 0x92, al
 
-; loading kernel
-; lba
-%macro LBA_SECTOR 0
-
-add word [dap+6],  4064 ; 512*127/16
-add dword [dap+8], 127 ; inc sector start 
-
-mov si, dap
-mov ah, 0x42
-mov dl, 0x80
-int 0x13 
-jc kernel_error
-
-%endmacro
-
-mov si, dap
-mov ah, 0x42
-mov dl, 0x80
-int 0x13
-jc kernel_error
-
-LBA_SECTOR
-LBA_SECTOR
-LBA_SECTOR
-LBA_SECTOR
-LBA_SECTOR
-LBA_SECTOR
-LBA_SECTOR
-LBA_SECTOR
-LBA_SECTOR
-
-; vesa
+; vesa --------------------------------------------------------------
 mov dword [VBE_INFO], "VBE2"
 
 xor ax, ax
@@ -72,9 +41,9 @@ loop_mode:
   cmp ax, 0x004F
   jne vbe_error
 
-  cmp word [VBE_MODE+18], 320 ;width
+  cmp word [VBE_MODE+18], 640 ;width
   jne loop_mode
-  cmp word [VBE_MODE+20], 200 ;height
+  cmp word [VBE_MODE+20], 400 ;height
   jne loop_mode
   cmp byte [VBE_MODE+25], 32 ;bpp
   jne loop_mode
@@ -91,9 +60,73 @@ int 0x10
 
 cmp ax, 0x004F
 jne vbe_error
+; ------------------------------------------------------------------------------
+
+; unreal mode -------------------------------------------------------------------
+start:
+  xor ax, ax
+  mov ds, ax
+  mov ss, ax
+  mov sp, 0x9c00
+
+  cli
+  push ds
+
+  lgdt [gdt_desc_unreal]
+
+  mov eax, cr0
+  or al,1
+  mov cr0, eax
+  jmp 0x8:protected_m
+
+protected_m:
+  mov bx, 0x10
+  mov ds, bx
+
+  and al, 0xFE
+  mov cr0, eax
+  jmp 0x0:unreal_m
+
+unreal_m:
+   pop ds
+   sti
+
+   mov bx, 0x0f01
+   mov eax, 0x0b8000
+   mov word [ds:eax], bx
+
+; loading kernel ---------------------------------------------------------------
+
+mov edi, 0x100000 ; at 1 mb
+mov eax, 3 ; start sector
+mov ecx, 9017 ; kernel sectors
+
+load_loop:
+  push ecx
+  push eax
+
+  mov dword [dap+8], eax ; sector start 
+
+  mov si, dap
+  mov ah, 0x42
+  mov dl, 0x80
+  int 0x13
+  jc kernel_error
+
+  mov ecx, 65024 ; 127 * 512
+  mov esi, 0x10000
+  a32 rep movsb ;a32 -> tell rep to use 32 bits registers
+
+  pop eax
+  add eax, 127
+  pop ecx
+  sub ecx, 127
+  jnz load_loop
 
 
-; to protected mode
+; ------------------------------------------------------------------------------
+
+;protected mode ------------------------------------------------------------
 cli ; clear interrupt flag (to ignore any input)
 
 xor ax, ax
@@ -128,6 +161,30 @@ vbe_error:
   jmp print
 vbe_error_msg:
   db "[ERROR] vbe", 0
+
+
+align 8
+gdtk:
+  dq 0
+
+  dw 0xFFFF
+  dw 0 
+  db 0
+  db 0b10011010
+  db 0b00000000
+  db 0
+
+  dw 0xFFFF
+  dw 0
+  db 0
+  db 0b10010010
+  db 0b11001111
+  db 0
+gdt_endk:
+
+gdt_desc_unreal:
+   dw gdt_endk - gdtk - 1
+   dd gdtk
 
 align 8 ; for speed!!
 gdt:
@@ -170,6 +227,13 @@ dap: ;disk address packet
   dd 3 ; start from 4rd sector
   dd 0
 
+
+
+
+
+
+
+
 [bits 32]
 
 protected_mode:
@@ -182,4 +246,4 @@ protected_mode:
 
   mov esp, 0x90000
 
-jmp 0x10000
+jmp 0x8:0x100000

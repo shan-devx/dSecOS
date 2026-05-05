@@ -434,11 +434,11 @@ void D_DoomLoop (void)
 
     if (demorecording)
     	G_BeginRecording ();
-
     main_loop_started = true;
 
     TryRunTics();
 
+//    printf("workesssssssssssssss"); [DIDN'T WORKED]
     I_SetWindowTitle(gamedescription);
     I_GraphicsCheckCommandLine();
     I_SetGrabMouseCallback(D_GrabMouseCallback);
@@ -447,7 +447,6 @@ void D_DoomLoop (void)
 
     V_RestoreBuffer();
     R_ExecuteSetViewSize();
-
     D_StartGameLoop();
 
     if (testcontrols)
@@ -1839,7 +1838,6 @@ void D_DoomMain (void)
 		else
 			D_StartTitle ();                // start up intro loop
     }
-
     D_DoomLoop ();
 }
 

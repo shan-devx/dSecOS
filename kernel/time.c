@@ -1,12 +1,13 @@
 #include "system.h"
+#include <stdio.h>
 
-int time_tick = 0;
+volatile int time_tick = 0;
 
 void time_handler(struct reg *r){
   time_tick++;
 /*
-  if(time_tick % 100 == 0){
-    terminal_print_string(" 1 sec passed ");
+  if(time_tick % 1000 == 0){
+    printf("***TIME IS WORKING*******");
   }
 */
 }

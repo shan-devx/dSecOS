@@ -1,6 +1,7 @@
 #include "system.h"
 #include <stdint.h>
 #include "../doomgeneric/doomkeys.h"
+#include <stdio.h>
 
 // US keyboard layout
 unsigned char kbdus[128] =
@@ -80,7 +81,6 @@ int doom_keyboard(int *pressed, unsigned char *key){
 
 void keyboard_handler(struct reg *r){
   uint8_t scancode = inportb(KB_D);
-
   // key released
   if(scancode & 0x80){
     press = 0;
@@ -89,11 +89,6 @@ void keyboard_handler(struct reg *r){
   else{
     press = 1;
     key_press = kbdus[scancode];
-
-    char a[2];
-    a[0] = kbdus[scancode];
-    a[1] = '\0';
-//    terminal_print_string(a);
   }
 }
 

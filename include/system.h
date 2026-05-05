@@ -26,7 +26,7 @@ extern void irq_init();
 extern void irq_install(int i, void (*handler)(struct reg *r));
 extern void irq_uninstall(int i);
 
-extern int time_tick;
+extern volatile int time_tick;
 extern void time_install();
 extern void time_wait(int ticks);
 
