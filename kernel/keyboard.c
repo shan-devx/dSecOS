@@ -44,36 +44,76 @@ unsigned char kbdus[128] =
     0,	/* All other keys are undefined */
 };
 
-int press = 0;
-unsigned char key_press = 0;
+struct kb{
+  unsigned char key;
+  int press;
+};
+
+struct queue{
+  struct kb item[16];
+  int f;
+  int b; 
+  int cnt;
+};
+
+volatile struct queue q = {.f = 0, .b = 0};
+
+void push(unsigned char key, int press){
+  if(q.cnt >= 15) return;
+
+  q.item[q.b].key = key;
+  q.item[q.b].press = press;
+  
+  q.b = (q.b + 1) % 16;
+  q.cnt++;
+}
+
+struct kb null_kb = {.press = 0, .key = 0};
+struct kb pop(){
+  if(q.b == q.f) return null_kb;
+
+  struct kb i = q.item[q.f];
+  q.f = (q.f + 1) % 16;
+  q.cnt--;
+  return i;
+}
 
 int doom_keyboard(int *pressed, unsigned char *key){
-  if(key_press != 0){
-    *pressed = press;
+  if(q.cnt == 0) return 0;
 
-    switch(key_press){
-      case 'w':
-        *key = KEY_UPARROW;
-        break;
-      case 's':
-        *key = KEY_DOWNARROW;
-        break;
-      case 'a':
-        *key = KEY_LEFTARROW;
-        break;
-      case 'd':
-        *key = KEY_RIGHTARROW;
-        break;
-      case '\n':
-        *key = KEY_ENTER;
-        break;
-      default:
-        *key = 0;
-    }
+  struct kb i = pop();
+  *pressed = i.press;
 
-    return 1;
+  switch(i.key){
+    case 'w':
+      *key = KEY_UPARROW;
+      break;
+    case 's':
+      *key = KEY_DOWNARROW;
+      break;
+    case 'a':
+      *key = KEY_LEFTARROW;
+      break;
+    case 'd':
+      *key = KEY_RIGHTARROW;
+      break;
+    case '\n':
+      *key = KEY_ENTER;
+      break;
+    case 'f':
+      *key = KEY_FIRE;
+      break;
+    case 'u':
+      *key = KEY_USE;
+      break;
+    case 'o':
+      *key = KEY_ESCAPE;
+      break;
+    default:
+      *key = 0;
   }
-  return 0;
+
+  return 1;
 }
 
 #define KB_D 0x60 // keyboard data register 
@@ -81,14 +121,12 @@ int doom_keyboard(int *pressed, unsigned char *key){
 
 void keyboard_handler(struct reg *r){
   uint8_t scancode = inportb(KB_D);
-  // key released
+
   if(scancode & 0x80){
-    press = 0;
-    key_press = 0;
+    push(kbdus[scancode & 0x7F], 0);
   }
   else{
-    press = 1;
-    key_press = kbdus[scancode];
+    push(kbdus[scancode & 0x7F], 1);
   }
 }
 
