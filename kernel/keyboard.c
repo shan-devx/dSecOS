@@ -78,11 +78,17 @@ struct kb pop(){
   return i;
 }
 
+volatile int doom_run = 0;
+
 int doom_keyboard(int *pressed, unsigned char *key){
   if(q.cnt == 0) return 0;
 
   struct kb i = pop();
   *pressed = i.press;
+
+  if(i.key == 'q'){
+    doom_run = 0;
+  }
 
   switch(i.key){
     case 'w':
@@ -114,6 +120,18 @@ int doom_keyboard(int *pressed, unsigned char *key){
   }
 
   return 1;
+}
+
+char keyboard_key(){
+  while(1){
+    if(q.cnt > 0){
+      struct kb k = pop();
+
+      if(k.key != 0 && k.press == 1){
+        return k.key;
+      }
+    }
+  }
 }
 
 #define KB_D 0x60 // keyboard data register 

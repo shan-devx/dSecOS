@@ -38,7 +38,7 @@ disk.img: boot.bin stage2.bin kernel.bin
 	cat $^ > $@
 
 run: disk.img
-	qemu-system-i386 -m 100M -drive file=disk.img,format=raw,index=0,media=disk
+	qemu-system-i386 -m 50M -drive file=disk.img,format=raw
 
 clean:
 	rm -f boot.bin stage2.bin kernel.bin kernel/*.o disk.img libc/*.o doomgeneric/*.o

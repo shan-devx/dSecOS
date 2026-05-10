@@ -6,6 +6,7 @@
 #include <vbe.h>
 #include "../doomgeneric/doomgeneric.h"
 #include <kbadapple.h>
+#include <shell.h>
 
 // for I/O
 uint8_t inportb (uint16_t port){
@@ -28,13 +29,8 @@ void main(){
   __asm__ __volatile__("sti");
   vbe_init();
   wad_init();
+  shell_run();
 
 //  play_badapple();
-
-  char *argv[] = {"doom", "-iwad", "freedoom1.wad"};
-  doomgeneric_Create(3, argv);
-  while(1){
-    doomgeneric_Tick();
-  }
   while(1);
 }

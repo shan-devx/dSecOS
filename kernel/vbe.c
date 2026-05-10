@@ -24,11 +24,22 @@ void put_pixel(int x, int y, int b, int g, int r){
   lfb[i+3] = 0;
 }
 
+void vbe_clear(){
+  for(int i = 0; i < HEIGHT * 4; i++){
+    for(int j = 0; j < WIDTH * 4; j++){
+      put_pixel(i, j, 0, 0, 0);
+    }
+  }
+
+  tcolumn = 0;
+  trow = 0;
+}
+
 void vbe_draw(char *d){
   memcpy(lfb, d, WIDTH*HEIGHT*4);
 }
 
-void put_char(int character, int x, int y){
+void putcharxy(int character, int x, int y){
   for(int i = 0; i < 8; i++){
     int ch = font8x8_basic[character][i];
     int j = 0;
@@ -49,7 +60,12 @@ void put_char(int character, int x, int y){
 void put_string(const char* c){
   size_t i = 0;
   while(c[i]){
-    put_char(c[i], tcolumn, trow);
+    if(c[i] == '\n'){
+      trow += 8;
+      tcolumn = 0;
+    }
+
+    putcharxy(c[i], tcolumn, trow);
 
     tcolumn += 8;
     if(tcolumn == WIDTH){
@@ -61,5 +77,18 @@ void put_string(const char* c){
     }
 
     i++;
+  }
+}
+
+void put_char(int c){
+  putcharxy(c, tcolumn, trow);
+
+  tcolumn += 8;
+  if(tcolumn == WIDTH){
+    trow += 8;
+    tcolumn = 0;
+    if(trow == HEIGHT){
+      trow = 0;
+    }
   }
 }
