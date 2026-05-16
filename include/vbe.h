@@ -10,5 +10,6 @@ extern void put_char(int character);
 extern void put_string(const char* c);
 extern void vbe_draw(char *d);
 extern void vbe_clear();
+extern void vbe_backspace();
 
 #endif

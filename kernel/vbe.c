@@ -1,4 +1,5 @@
 #include <stddef.h>
+#include <stdio.h>
 #include <string.h>
 #include <system.h>
 #include <strings.h>
@@ -33,6 +34,29 @@ void vbe_clear(){
 
   tcolumn = 0;
   trow = 0;
+}
+
+void vbe_backspace(){
+  tcolumn -= 8;
+  if(tcolumn < 0){
+    trow -= 8;
+    tcolumn = WIDTH;
+    if(trow == 0){
+      trow = HEIGHT;
+    }
+  } 
+
+  putchar(' ');
+
+  tcolumn -= 8;
+  if(tcolumn < 0){
+    trow -= 8;
+    tcolumn = WIDTH;
+    if(trow == 0){
+      trow = HEIGHT;
+    }
+  } 
+
 }
 
 void vbe_draw(char *d){

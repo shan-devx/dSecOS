@@ -20,7 +20,7 @@ void shell_exc(){
 
     vbe_clear();
     printf("dSecOS:~$ ");
-
+    bidx = 0;
   }
 
   else if(strncmp(shell_buff, "echo ", 5) == 0){
@@ -31,15 +31,23 @@ void shell_exc(){
     bidx = 0;
   }
 
+  else if(strncmp(shell_buff, "clear", 5) == 0){
+    vbe_clear();
+    printf("dSecOS:~$ ");
+    bidx = 0;
+  }
+
   else{
     printf("\nUnknown cmd\n");
     printf("dSecOS:~$ ");
     bidx = 0;
   }
+
+  shell_buff[bidx] = '\0';
 }
 
 void shell_run(){
-  printf("dSecOS:~$ ");
+  printf(" dSecOS:~$ ");
 
   while(1){
     char c = keyboard_key();
@@ -47,10 +55,19 @@ void shell_run(){
     if(c == '\n'){
       shell_exc();
     }
+    else if(c == '\b'){
+      if(bidx > 0){
+        vbe_backspace();
+
+        bidx--;
+        shell_buff[bidx] = '\0';
+      }
+    }
     else{
+      put_char((int)c);
       shell_buff[bidx] = c;
       bidx++;
-      put_char((int)c);
+      shell_buff[bidx] = '\0';
     }
   }
 }
