@@ -3,6 +3,7 @@
 #include <vbe.h>
 #include <strings.h>
 #include "../doomgeneric/doomgeneric.h"
+#include <kbadapple.h>
 
 char shell_buff[630];
 size_t bidx = 0;
@@ -21,6 +22,12 @@ void shell_exc(){
     vbe_clear();
     printf("dSecOS:~$ ");
     bidx = 0;
+  }
+
+  else if(strncmp(shell_buff, "badapple", 8) == 0){
+    bidx = 0;
+    shell_buff[bidx] = '\0';
+    play_badapple();
   }
 
   else if(strncmp(shell_buff, "echo ", 5) == 0){

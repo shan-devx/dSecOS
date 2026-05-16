@@ -7,7 +7,7 @@ C_SRCS  := $(wildcard kernel/*.c)
 ASM_SRCS := $(wildcard kernel/*.asm)
 LIBC_SRCS := $(wildcard libc/*.c)
 DOOM_SRCS := $(wildcard doomgeneric/*.c)
-OBJS    := $(C_SRCS:.c=.o) $(ASM_SRCS:.asm=.o) $(LIBC_SRCS:.c=.o) $(DOOM_SRCS:.c=.o) doomwad.o
+OBJS    := $(C_SRCS:.c=.o) $(ASM_SRCS:.asm=.o) $(LIBC_SRCS:.c=.o) $(DOOM_SRCS:.c=.o) doomwad.o badapple.o
 
 all: disk.img
 
@@ -30,15 +30,19 @@ libc/%.o: libc/%.c
 doomgeneric/%.o: doomgeneric/%.c
 	$(CC) -c $< -o $@ $(CFLAGS)
 
+badapple.o: badapple
+	objcopy -I binary -O elf32-i386 -B i386 badapple badapple.o
+# ffmpeg -i bad_apple.mp4 -vf scale=640:400 -f rawvideo -r 12 -pix_fmt gray frames.raw
+
 kernel.bin: $(OBJS)
 	$(LD) $(LDFLAGS) $^ /home/shan/opt/cross/lib/gcc/i686-elf/14.1.0/libgcc.a -o $@
-	truncate -s 4616704 kernel.bin
+	truncate -s 88822784 kernel.bin
 
 disk.img: boot.bin stage2.bin kernel.bin 
 	cat $^ > $@
 
 run: disk.img
-	qemu-system-i386 -m 50M -drive file=disk.img,format=raw
+	qemu-system-i386 -m 256M -drive file=disk.img,format=raw
 
 clean:
 	rm -f boot.bin stage2.bin kernel.bin kernel/*.o disk.img libc/*.o doomgeneric/*.o

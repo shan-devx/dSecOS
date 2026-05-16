@@ -18,8 +18,10 @@ void outportb (uint16_t port, uint8_t data){
     __asm__ __volatile__ ("outb %0, %1" : : "a"(data), "dN" (port) : "memory");
 }
 
+// it is slow is hell now to boot
 void main() __attribute__((section(".text.main")));
 void main(){
+  printf("hello");
   idt_init();
   isr_init();
   irq_init();
@@ -31,6 +33,5 @@ void main(){
   wad_init();
   shell_run();
 
-//  play_badapple();
   while(1);
 }

@@ -99,7 +99,9 @@ unreal_m:
 
 mov edi, 0x100000 ; at 1 mb
 mov eax, 3 ; start sector
-mov ecx, 9017 ; kernel sectors
+;mov ecx, 9017 ; kernel sectors
+;mov ecx, 173362
+mov ecx, 173482
 
 load_loop:
   push ecx

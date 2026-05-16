@@ -33,6 +33,7 @@ extern void time_wait(int ticks);
 extern void keyboard_init();
 extern int doom_keyboard(int *pressed, unsigned char *key);
 extern char keyboard_key();
+extern char keyboard_keyf();
 volatile extern int doom_run;
 
 extern void terminal_init();

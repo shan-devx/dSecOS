@@ -134,6 +134,18 @@ char keyboard_key(){
   }
 }
 
+char keyboard_keyf(){
+  if(q.cnt > 0){
+    struct kb k = pop();
+
+    if(k.key != 0 && k.press == 1){
+      return k.key;
+    }
+  }
+
+return ' ';
+}
+
 #define KB_D 0x60 // keyboard data register 
 #define KB_C 0x64 // keyboard control register
 
