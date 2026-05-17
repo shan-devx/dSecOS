@@ -11,5 +11,7 @@ extern void put_string(const char* c);
 extern void vbe_draw(char *d);
 extern void vbe_clear();
 extern void vbe_backspace();
+extern void color_white();
+extern void color_hacker();
 
 #endif

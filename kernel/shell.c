@@ -44,6 +44,46 @@ void shell_exc(){
     bidx = 0;
   }
 
+  else if(strncmp(shell_buff, "hack", 4) == 0){
+    color_hacker();
+
+    printf("\n[HACK TOOL] v0.68\n");
+    time_wait(500);
+    printf("\nInitializing hack tool sequence...\n");
+    time_wait(500);
+    printf("\nScanning for targets...\n");
+    time_wait(500);
+    printf("\n >>> 192.168.42.7\n");
+    time_wait(500);
+    printf("\nBypassing firewall...\n");
+    time_wait(700);
+    printf("\n[FAILED] trying again...\n");
+    time_wait(1000);
+    printf("\nACCESS GRANTED\n");
+    time_wait(500);
+    printf("\nWelcome dSecOS User\n");
+    time_wait(500);
+    printf("\nConnecting to the servers\n");
+    time_wait(500);
+    printf("\nDownloading Stuff...\n");
+    time_wait(1000);
+    printf("\nDownloaded 69PB data\n");
+    time_wait(500);
+    printf("\n[Found] the files\n");
+    time_wait(500);
+    printf("\nUploading rootkit...\n");
+    time_wait(500);
+    printf("\nTrace deteced !!! BLASTING TARGET SERVERS ...\n");
+    time_wait(1000);
+    printf("\nTrace neutralized\n");
+    time_wait(2000);
+    printf("\njk nothing happened\n");
+
+    color_white();
+    printf("dSecOS:~$ ");
+    bidx = 0;
+  }
+
   else{
     printf("\nUnknown cmd\n");
     printf("dSecOS:~$ ");

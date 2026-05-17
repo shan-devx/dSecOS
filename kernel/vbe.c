@@ -63,6 +63,14 @@ void vbe_draw(char *d){
   memcpy(lfb, d, WIDTH*HEIGHT*4);
 }
 
+int r = 0xFF, g = 0xFF, b = 0xFF;
+void color_white(){
+  r = 0xFF; g = 0xFF; b = 0xFF;
+}
+void color_hacker(){
+  r = 0; g = 0xFF; b = 65;
+}
+
 void putcharxy(int character, int x, int y){
   for(int i = 0; i < 8; i++){
     int ch = font8x8_basic[character][i];
@@ -70,7 +78,7 @@ void putcharxy(int character, int x, int y){
 
     while(j < 7){
       if(ch & 1){
-        put_pixel(x+j, y+i, 0xFF, 0xFF, 0xFF);
+        put_pixel(x+j, y+i, b, g, r);
       }
       else{
         put_pixel(x+j, y+i, 0, 0, 0);
