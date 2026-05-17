@@ -31,6 +31,7 @@ void main(){
   __asm__ __volatile__("sti");
   vbe_init();
   wad_init();
+  printf("dSecOS:~$ ");
   shell_run();
 
   while(1);

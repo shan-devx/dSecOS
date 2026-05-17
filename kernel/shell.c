@@ -20,13 +20,9 @@ void shell_exc(){
     }
 
     vbe_clear();
-    printf("dSecOS:~$ ");
-    bidx = 0;
   }
 
   else if(strncmp(shell_buff, "badapple", 8) == 0){
-    bidx = 0;
-    shell_buff[bidx] = '\0';
     play_badapple();
   }
 
@@ -34,14 +30,10 @@ void shell_exc(){
     printf("\n");
     printf(shell_buff + 5);
     printf("\n");
-    printf("dSecOS:~$ ");
-    bidx = 0;
   }
 
   else if(strncmp(shell_buff, "clear", 5) == 0){
     vbe_clear();
-    printf("dSecOS:~$ ");
-    bidx = 0;
   }
 
   else if(strncmp(shell_buff, "hack", 4) == 0){
@@ -80,21 +72,29 @@ void shell_exc(){
     printf("\njk nothing happened\n");
 
     color_white();
-    printf("dSecOS:~$ ");
-    bidx = 0;
+  }
+
+  else if(strncmp(shell_buff, "help", 4) == 0){
+    printf("\ncommands:\n");
+    printf("\nclear - clears screen\n");
+    printf("\necho - display a line of text\n");
+    printf("\ndoom - play doom\n");
+    printf("\nbadapple - play badapple video\n");
+    printf("\nhack - find out yourself!!\n");
   }
 
   else{
-    printf("\nUnknown cmd\n");
-    printf("dSecOS:~$ ");
-    bidx = 0;
+    printf("\ncmd no found. Run 'help' for help\n");
   }
 
+  printf("dSecOS:~$ ");
+  bidx = 0;
   shell_buff[bidx] = '\0';
 }
 
 void shell_run(){
-  printf(" dSecOS:~$ ");
+  bidx = 0;
+  shell_buff[bidx] = '\0';
 
   while(1){
     char c = keyboard_key();

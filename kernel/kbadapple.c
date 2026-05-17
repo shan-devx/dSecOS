@@ -50,5 +50,6 @@ void play_badapple(){
     time_wait(83);
   }
   vbe_clear();
+  printf("dSecOS:~$ ");
   shell_run();
 }
